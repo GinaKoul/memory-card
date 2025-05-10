@@ -1,4 +1,5 @@
 .card {
+  text-align: center;
   outline: none;
   background-color: #816b23;
   color: #f8e8b7;
@@ -6,11 +7,13 @@
   border: 1px solid #816b23;
   padding: 8px;
   pointer-events: all;
+  cursor: pointer;
   transition: background-color 0.25s, box-shadow 0.25s;
 }
 
 .card:hover,
-.card:focus {
+.card:focus,
+.card:focus-visible {
   background-color: #66551f;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,

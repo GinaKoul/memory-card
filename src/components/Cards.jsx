@@ -1,3 +1,4 @@
+import "../styles/Cards.css";
 import { useState, useEffect } from "react";
 import Card from "./Card";
 
@@ -46,6 +47,10 @@ export default function Cards() {
     }
   }
 
+  function handleKeyDown(e) {
+    e.code === "Enter" && handleClick(e);
+  }
+
   if (currentScore >= 41) {
     return <p>Congratulations you won!</p>;
   }
@@ -54,19 +59,22 @@ export default function Cards() {
     <>
       <p>Best score: {bestScore}</p>
       <p>Current Score: {currentScore}</p>
-      <article>
-        {visibleData.map((card) => {
-          return (
-            <Card
-              key={card.id}
-              id={card.id}
-              title={card.name}
-              image={card.image}
-              handleClick={handleClick}
-            ></Card>
-          );
-        })}
-      </article>
+      <section>
+        <div className="cards">
+          {visibleData.map((card) => {
+            return (
+              <Card
+                key={card.id}
+                id={card.id}
+                title={card.name}
+                image={card.image}
+                handleClick={handleClick}
+                handleKeyDown={handleKeyDown}
+              ></Card>
+            );
+          })}
+        </div>
+      </section>
     </>
   );
 }

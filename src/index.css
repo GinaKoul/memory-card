@@ -23,6 +23,8 @@ a:hover {
 }
 
 body {
+  background-color: #3b0610;
+  color: #f8e8b7;
   margin: 0;
   display: flex;
   place-items: center;
@@ -33,14 +35,6 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-article article {
-  pointer-events: all;
-}
-
-article article * {
-  pointer-events: none;
 }
 
 button {

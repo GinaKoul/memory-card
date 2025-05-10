@@ -35,6 +35,14 @@ h1 {
   line-height: 1.1;
 }
 
+article article {
+  pointer-events: all;
+}
+
+article article * {
+  pointer-events: none;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

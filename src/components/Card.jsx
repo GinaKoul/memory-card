@@ -1,7 +1,7 @@
-export default function Card({ title, image }) {
+export default function Card({ id, title, image, handleClick }) {
   return (
-    <article>
-      <img src={image} alt={title} />
+    <article id={id} onClick={handleClick}>
+      <img src={image === "" ? null : image} alt={title} />
       <h3>{title}</h3>
     </article>
   );

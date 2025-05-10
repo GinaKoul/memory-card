@@ -30,7 +30,7 @@ function App() {
   const [visibleData, setVisibleData] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
   const [bestScore, setBestScore] = useState(0);
-  const [gameFinished, setGameFinished] = useState(true);
+  const [gameFinished, setGameFinished] = useState(false);
 
   const currentScore = selectedCards.length;
 

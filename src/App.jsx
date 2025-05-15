@@ -31,6 +31,8 @@ function App() {
   const [selectedCards, setSelectedCards] = useState([]);
   const [bestScore, setBestScore] = useState(0);
   const [gameFinished, setGameFinished] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const currentScore = selectedCards.length;
 
@@ -38,7 +40,12 @@ function App() {
     let ignore = false;
     if (!ignore) {
       fetch("https://hp-api.onrender.com/api/characters")
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.status >= 400) {
+            throw new Error("server error");
+          }
+          return response.json();
+        })
         .then((data) => {
           if (!ignore) {
             let newData = [];
@@ -52,7 +59,8 @@ function App() {
             setData(newData);
           }
         })
-        .catch((error) => console.error(error));
+        .catch((error) => setError(error))
+        .finally(() => setLoading(false));
     }
 
     return () => (ignore = true);
@@ -84,6 +92,9 @@ function App() {
     setSelectedCards([]);
     setGameFinished(false);
   }
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>A network error was encountered</p>;
 
   if (gameFinished) {
     return <GameFinished handleRestart={handleRestart} />;

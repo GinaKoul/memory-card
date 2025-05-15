@@ -4,6 +4,7 @@ import Cards from "./components/Cards.jsx";
 import Card from "./components/Card.jsx";
 import ScoreBoard from "./components/ScoreBoard.jsx";
 import GameFinished from "./components/GameFinished.jsx";
+import useDataAwait from "./hooks/useDataAwait.jsx";
 
 function shuffle(currentArray, selectedArray) {
   const max = currentArray.length;
@@ -25,46 +26,8 @@ function shuffle(currentArray, selectedArray) {
   return newArray;
 }
 
-function useData() {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let ignore = false;
-    if (!ignore) {
-      fetch("https://hp-api.onrender.com/api/characters")
-        .then((response) => {
-          if (response.status >= 400) {
-            throw new Error("server error");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          if (!ignore) {
-            let newData = [];
-            let hasImageCount = 0;
-            for (let index = 0; index < data.length; index++) {
-              if (data[index].image == "") continue;
-              newData.push(data[index]);
-              hasImageCount++;
-              if (hasImageCount >= 25) break;
-            }
-            setData(newData);
-          }
-        })
-        .catch((error) => setError(error))
-        .finally(() => setLoading(false));
-    }
-
-    return () => (ignore = true);
-  }, []);
-
-  return { data, error, loading };
-}
-
 function App() {
-  const { data, error, loading } = useData();
+  const { data, error, loading } = useDataAwait();
   const [visibleData, setVisibleData] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
   const [bestScore, setBestScore] = useState(0);

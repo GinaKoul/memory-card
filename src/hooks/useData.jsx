@@ -26,6 +26,7 @@ const useData = () => {
             if (hasImageCount >= 25) break;
           }
           setData(newData);
+          setError(null);
         }
       })
       .catch((error) => setError(error))

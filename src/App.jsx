@@ -25,16 +25,10 @@ function shuffle(currentArray, selectedArray) {
   return newArray;
 }
 
-function App() {
+function useData() {
   const [data, setData] = useState([]);
-  const [visibleData, setVisibleData] = useState([]);
-  const [selectedCards, setSelectedCards] = useState([]);
-  const [bestScore, setBestScore] = useState(0);
-  const [gameFinished, setGameFinished] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const currentScore = selectedCards.length;
 
   useEffect(() => {
     let ignore = false;
@@ -65,6 +59,18 @@ function App() {
 
     return () => (ignore = true);
   }, []);
+
+  return { data, error, loading };
+}
+
+function App() {
+  const { data, error, loading } = useData();
+  const [visibleData, setVisibleData] = useState([]);
+  const [selectedCards, setSelectedCards] = useState([]);
+  const [bestScore, setBestScore] = useState(0);
+  const [gameFinished, setGameFinished] = useState(false);
+
+  const currentScore = selectedCards.length;
 
   useEffect(() => {
     data.length > 0 && setVisibleData(shuffle(data, selectedCards));
